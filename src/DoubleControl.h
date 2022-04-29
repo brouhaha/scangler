@@ -2,7 +2,7 @@
 #define DOUBLECONTROL_H
 
 #include <QtGui>
-#include <qwt/qwt_slider.h>
+#include <qwt5-qt4/qwt_slider.h>
 
 class DoubleControl: public QGroupBox
 {
