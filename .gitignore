@@ -1,0 +1,6 @@
+binarize-gui
+*.o
+moc_*.cpp
+Makefile
+*.jpg
+*~

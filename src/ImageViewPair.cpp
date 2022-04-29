@@ -1,3 +1,7 @@
+// binarize - Sauvola binarization of images
+// Copyright 2012, 2022 Eric Smith <spacewar@gmail.com
+// SPDX-License-Identifier: GPL-3.0-only
+
 #include "ImageViewPair.h"
 
 ImageViewPair::ImageViewPair (QImage *i1, QImage *i2, QWidget *parent, Qt::WindowFlags f) : QWidget (parent, f)
