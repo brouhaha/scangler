@@ -2,6 +2,8 @@
 // Copyright 2012, 2022 Eric Smith <spacewar@gmail.com
 // SPDX-License-Identifier: GPL-3.0-only
 
+#include <cmath>
+
 #include "DoubleControl.h"
 
 DoubleControl::DoubleControl (double min, double max,
@@ -11,7 +13,7 @@ DoubleControl::DoubleControl (double min, double max,
 			      const char *title,
 			      QWidget *parent) : QGroupBox (parent),
 						 spinbox(QDoubleSpinBox(this)),
-						 slider(QwtSlider(Qt::Horizontal, this)),
+						 slider(DoubleSlider(this, pow(10, decimals))),
 						 layout(QVBoxLayout(this))
 							 
 {
@@ -21,8 +23,8 @@ DoubleControl::DoubleControl (double min, double max,
   spinbox.setSingleStep(step);
   spinbox.setValue(initial);
 
-  slider.setScale(min, max);
-  slider.setValue(initial);
+  slider.setDoubleRange(min, max);
+  slider.setDoubleValue(initial);
 
   connect(& spinbox,
 	  SIGNAL(valueChanged (double)),

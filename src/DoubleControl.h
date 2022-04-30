@@ -9,7 +9,7 @@
 #include <QGroupBox>
 #include <QVBoxLayout>
 
-#include "qt5/qwt/qwt_slider.h"
+#include "DoubleSlider.h"
 
 class DoubleControl: public QGroupBox
 {
@@ -30,7 +30,7 @@ class DoubleControl: public QGroupBox
 
  private:
   QDoubleSpinBox spinbox;
-  QwtSlider slider;
+  DoubleSlider slider;
   QVBoxLayout layout;
 };
 

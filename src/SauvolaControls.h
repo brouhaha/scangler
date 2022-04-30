@@ -24,7 +24,7 @@ class SauvolaControls: public QGroupBox
 
  private:
   IntControl sw;
-  //DoubleControl sk;
+  DoubleControl sk;
   QHBoxLayout layout;
 
   private slots:

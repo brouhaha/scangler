@@ -6,7 +6,7 @@
 
 IntControl::IntControl(int min, int max, int initial,
 		       const char *title,
-		       QWidget *parent) : QGroupBox (parent),
+		       QWidget *parent) : QGroupBox(parent),
 					  spinbox(QSpinBox(this)),
 					  slider(QSlider(Qt::Horizontal, this)),
 					  layout(QVBoxLayout(this))

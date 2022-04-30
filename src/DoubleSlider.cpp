@@ -1,0 +1,29 @@
+// binarize - Sauvola binarization of images
+// Copyright 2012, 2022 Eric Smith <spacewar@gmail.com
+// SPDX-License-Identifier: GPL-3.0-only
+
+#include "DoubleSlider.h"
+
+
+DoubleSlider::DoubleSlider(QWidget *parent, double scale) : QSlider(parent),
+							    scale(scale)
+{
+  connect(this, SIGNAL(valueChanged(int)),
+	  this, SLOT(notifyValueChanged(int)));
+}
+
+void DoubleSlider::notifyValueChanged(int value)
+{
+  double doubleValue = value / scale;
+  emit doubleValueChanged(doubleValue);
+}
+
+void DoubleSlider::setDoubleValue(double value)
+{
+  setValue(value * scale);
+}
+
+void DoubleSlider::setDoubleRange(double min, double max)
+{
+  setRange(min * scale, max * scale);
+}
