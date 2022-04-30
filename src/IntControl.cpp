@@ -19,22 +19,18 @@ IntControl::IntControl(int min, int max, int initial,
   slider.setMaximum(max);
   slider.setValue(initial);
 
-  connect(& spinbox,
-	  SIGNAL(valueChanged (int)),
-	  & slider,
-	  SLOT(setValue (int)));
-  connect(& slider,
-	  SIGNAL (valueChanged (int)),
-	  & spinbox,
-	  SLOT (setValue (int)));
-  connect(& spinbox,
-	  SIGNAL (valueChanged (int)),
-	  this,
-	  SIGNAL (valueChanged (int)));
-  connect(& slider,
-	  SIGNAL (valueChanged (int)),
-	  this,
-	  SIGNAL (valueChanged (int)));
+  // link the QSpinBox to the QSlider and this
+  void (QSpinBox::*qspinbox_valueChanged_int)(int) = &QSpinBox::valueChanged;
+  connect(& spinbox, qspinbox_valueChanged_int,
+	  & slider,  & QSlider::setValue);
+  connect(& spinbox, qspinbox_valueChanged_int,
+	  this,      & IntControl::valueChanged);
+
+  // link the QSlider to the QSpinBox and this
+  connect(& slider,  & QSlider::valueChanged,
+	  & spinbox, & QSpinBox::setValue);
+  connect(& slider,  & QSlider::valueChanged,
+	  this,      & IntControl::valueChanged);
 
   layout.addWidget(& slider);
   layout.addWidget(& spinbox);

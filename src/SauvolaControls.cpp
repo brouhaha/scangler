@@ -10,14 +10,10 @@ SauvolaControls::SauvolaControls(double k, int w,
 						    sk(DoubleControl(0.0, 1.0, 3, 0.01, k, "k", this)),
 						    layout(QHBoxLayout(this))
 {
-  connect(& sw,
-	   SIGNAL(valueChanged(int)),
-	   this,
-	   SLOT(controlChanged()));
-  connect(& sk,
-	   SIGNAL(valueChanged(double)),
-	   this,
-	   SLOT(controlChanged()));
+  connect(& sw, & IntControl::valueChanged,
+	  this, & SauvolaControls::controlChanged);
+  connect(& sk, & DoubleControl::valueChanged,
+	  this, & SauvolaControls::controlChanged);
 
   layout.addWidget(& sw);
   layout.addWidget(& sk);

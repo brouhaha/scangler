@@ -14,14 +14,10 @@ ImageViewPair::ImageViewPair(QImage *i0, QImage *i1, QWidget *parent, Qt::Window
 
   for (int i = 0; i < 2; i++)
     {
-      connect (imageView[i]->horizontalScrollBar(),
-	       SIGNAL(valueChanged(int)),
-	       imageView[! i]->horizontalScrollBar(),
-	       SLOT(setValue(int)));
-      connect (imageView[i]->verticalScrollBar(),
-	       SIGNAL(valueChanged(int)),
-	       imageView[! i]->verticalScrollBar(),
-	       SLOT(setValue(int)));
+      connect (imageView[  i]->horizontalScrollBar(), & QScrollBar::valueChanged,
+	       imageView[! i]->horizontalScrollBar(), & QScrollBar::setValue);
+      connect (imageView[  i]->verticalScrollBar(),   & QScrollBar::valueChanged,
+	       imageView[! i]->verticalScrollBar(),   & QScrollBar::setValue);
     }
 
   orientation = Horizontal;

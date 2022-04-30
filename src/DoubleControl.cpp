@@ -26,22 +26,17 @@ DoubleControl::DoubleControl (double min, double max,
   slider.setDoubleRange(min, max);
   slider.setDoubleValue(initial);
 
-  connect(& spinbox,
-	  SIGNAL(valueChanged (double)),
-	  & slider,
-	  SLOT(setValue (double)));
-  connect(& slider,
-	  SIGNAL(valueChanged (double)),
-	  & spinbox,
-	  SLOT(setValue (double)));
-  connect(& spinbox,
-	  SIGNAL(valueChanged (double)),
-	  this,
-	  SIGNAL(valueChanged (double)));
-  connect(& slider,
-	  SIGNAL(valueChanged (double)),
-	  this,
-	  SIGNAL(valueChanged (double)));
+  // link the QDoubleSpinBox to the DoubleSlider and this
+  connect(& spinbox, & QDoubleSpinBox::valueChanged,
+	  & slider,  & DoubleSlider::setDoubleValue);
+  connect(& spinbox, & QDoubleSpinBox::valueChanged,
+	  this,      & DoubleControl::valueChanged);
+
+  // link the DoubleSlider to the QDoubleSpinBox and this
+  connect(& slider,  & DoubleSlider::doubleValueChanged,
+	  & spinbox, & QDoubleSpinBox::setValue);
+  connect(& slider,  & DoubleSlider::doubleValueChanged,
+	  this,      & DoubleControl::valueChanged);
 
   layout.addWidget(& slider);
   layout.addWidget(& spinbox);

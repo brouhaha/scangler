@@ -8,8 +8,8 @@
 DoubleSlider::DoubleSlider(QWidget *parent, double scale) : QSlider(parent),
 							    scale(scale)
 {
-  connect(this, SIGNAL(valueChanged(int)),
-	  this, SLOT(notifyValueChanged(int)));
+  connect(this, & DoubleSlider::valueChanged,
+	  this, & DoubleSlider::notifyValueChanged);
 }
 
 void DoubleSlider::notifyValueChanged(int value)

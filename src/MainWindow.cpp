@@ -13,10 +13,8 @@ MainWindow::MainWindow()
   QWidget *box = new QWidget(this);
   sparm = new SauvolaControls(0.2, 30, box);
 
-  connect(sparm,
-	  SIGNAL(valueChanged(double, int)),
-	  this,
-	  SLOT(sauvolaParametersChanged(double, int)));
+  connect(sparm, & SauvolaControls::valueChanged,
+	  this,  & MainWindow::sauvolaParametersChanged);
 
   image1 = NULL;
   image2 = NULL;
@@ -50,22 +48,28 @@ MainWindow::MainWindow()
 void MainWindow::createActions()
 {
   openAct = new QAction(tr("&Open"), this);
-  connect(openAct, SIGNAL(triggered()), this, SLOT(openFile()));
+  connect(openAct,  & QAction::triggered,
+	  this,     & MainWindow::openFile);
 
   exitAct = new QAction(tr("&Exit"), this);
-  connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
+  connect(exitAct,  & QAction::triggered,
+	  this,     & MainWindow::close);
 
   viewHAct = new QAction(tr("&Horizontal"), this);
-  connect(viewHAct, SIGNAL(triggered()), this, SLOT(viewH()));
+  connect(viewHAct, & QAction::triggered,
+	  this,     & MainWindow::viewH);
 
   viewVAct = new QAction(tr("&Vertical"), this);
-  connect(viewVAct, SIGNAL(triggered()), this, SLOT(viewV()));
+  connect(viewVAct, & QAction::triggered,
+	  this,     & MainWindow::viewV);
 
   view0Act = new QAction(tr("&Greyscale only"), this);
-  connect(view0Act, SIGNAL(triggered()), this, SLOT(view0()));
+  connect(view0Act, & QAction::triggered,
+	  this,     & MainWindow::view0);
 
   view1Act = new QAction(tr("&Binarized only"), this);
-  connect(view1Act, SIGNAL(triggered()), this, SLOT(view1()));
+  connect(view1Act, & QAction::triggered,
+	  this,     & MainWindow::view1);
 }
 
 void MainWindow::createMenus()
