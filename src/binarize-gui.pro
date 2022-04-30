@@ -3,9 +3,11 @@
 # SPDX-License-Identifier: GPL-3.0-only
 
 TEMPLATE = app
-TARGET = 
+TARGET = binarize-gui
 DEPENDPATH += .
 INCLUDEPATH += .
+
+QT += widgets
 
 # Input
 HEADERS += ImageView.h ImageViewPair.h \
@@ -17,4 +19,4 @@ SOURCES += ImageView.cpp ImageViewPair.cpp \
         SauvolaControls.cpp \
 	MainWindow.cpp \
 	main.cpp
-LIBS += -lqwt5-qt4
+LIBS += -lqwt-qt5

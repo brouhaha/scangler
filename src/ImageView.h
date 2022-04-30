@@ -5,7 +5,8 @@
 #ifndef IMAGEVIEW_H
 #define IMAGEVIEW_H
 
-#include <QtGui>
+#include <QGraphicsView>
+#include <QGraphicsPixmapItem>
 
 class ImageView: public QGraphicsView
 {
@@ -13,13 +14,13 @@ class ImageView: public QGraphicsView
 
  private:
   QPixmap pixmap;
-  QGraphicsPixmapItem *item;
-  QGraphicsScene *scene;
-  QGraphicsView *view;
+  QGraphicsPixmapItem item;
+  QGraphicsScene scene;
+  QGraphicsView view;
 
  public:
-  ImageView (QImage *i, QWidget *parent = 0);
-  void setImage (QImage *i);
+  ImageView(QImage *i, QWidget *parent = 0);
+  void setImage(QImage *i);
 };
 
 #endif

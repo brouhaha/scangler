@@ -5,7 +5,7 @@
 #ifndef IMAGEVIEWPAIR_H
 #define IMAGEVIEWPAIR_H
 
-#include <QtGui>
+#include <QGridLayout>
 #include "ImageView.h"
 
 class ImageViewPair: public QWidget
@@ -21,15 +21,14 @@ class ImageViewPair: public QWidget
     Only1
   };
 
-  ImageViewPair (QImage *i1, QImage *i2, QWidget *parent = 0, Qt::WindowFlags f = 0);
-  void setImage (int n, QImage *i);
-  void setOrientation (enum Orientation orientation);
+  ImageViewPair(QImage *i0, QImage *i1, QWidget *parent = 0, Qt::WindowFlags f = Qt::WindowFlags());
+  void setImage(int n, QImage *i);
+  void setOrientation(enum Orientation orientation);
 
  private:
   enum Orientation orientation;
-  QImage *image [2];
-  ImageView *imageView [2];
-  QGridLayout *layout;
+  ImageView *imageView[2];
+  QGridLayout layout;
 };
 
 #endif

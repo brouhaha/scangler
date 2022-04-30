@@ -6,7 +6,8 @@
 #define MAINWINDOW_H
 
 #include <stdint.h>
-#include <QtGui>
+#include <QMainWindow>
+
 #include "ImageViewPair.h"
 #include "IntControl.h"
 #include "SauvolaControls.h"
@@ -16,7 +17,7 @@ class MainWindow: public QMainWindow
   Q_OBJECT
 
  public:
-  MainWindow ();
+  MainWindow();
 
  private:
   QImage *image1;
@@ -33,8 +34,8 @@ class MainWindow: public QMainWindow
   SauvolaControls *sparm;
   IntControl *threadCount;
 
-  void createActions ();
-  void createMenus ();
+  void createActions();
+  void createMenus();
 
   QMenu *fileMenu;
   QAction *openAct;
@@ -46,18 +47,18 @@ class MainWindow: public QMainWindow
   QAction *view0Act;
   QAction *view1Act;
 
-  void loadImage (QString fn);
-  void computeIntegralImages ();
-  void binarize ();
+  void loadImage(QString fn);
+  void computeIntegralImages();
+  void binarize();
 
  private slots:
-  void openFile ();
-  void viewH ();
-  void viewV ();
-  void view0 ();
-  void view1 ();
+  void openFile();
+  void viewH();
+  void viewV();
+  void view0();
+  void view1();
 
-  void sauvolaParametersChanged (double k, int w);
+  void sauvolaParametersChanged(double k, int w);
 };
 
 #endif

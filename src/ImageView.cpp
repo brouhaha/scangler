@@ -5,17 +5,16 @@
 #include <QtGui>
 #include "ImageView.h"
 
-ImageView::ImageView (QImage *i, QWidget *parent) : QGraphicsView (parent)
+ImageView::ImageView(QImage *i, QWidget *parent) : QGraphicsView (parent),
+						   pixmap(QPixmap::fromImage(*i)),
+						   item(QGraphicsPixmapItem(pixmap))
 {
-  pixmap = QPixmap::fromImage (*i);
-  item = new QGraphicsPixmapItem (pixmap);
-  scene = new QGraphicsScene;
-  scene->addItem (item);
-  setScene (scene);
+  scene.addItem(& item);
+  setScene(& scene);
 }
 
-void ImageView::setImage (QImage *i)
+void ImageView::setImage(QImage *i)
 {
-  pixmap.convertFromImage (*i);
-  scene->update ();
+  pixmap.convertFromImage(*i);
+  scene.update();
 }

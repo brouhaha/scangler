@@ -1,6 +1,8 @@
 binarize-gui
 *.o
+moc_*.h
 moc_*.cpp
 Makefile
 *.jpg
+.qmake*
 *~

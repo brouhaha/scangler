@@ -23,9 +23,9 @@ class SauvolaControls: public QGroupBox
   void valueChanged (double k, int w);
 
  private:
-  IntControl *sw;
-  DoubleControl *sk;
-  QHBoxLayout *layout;
+  IntControl sw;
+  //DoubleControl sk;
+  QHBoxLayout layout;
 
   private slots:
    void controlChanged ();
