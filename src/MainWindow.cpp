@@ -109,12 +109,12 @@ void MainWindow::loadImage(QString fn)
 {
   if (image1)
     {
-      // $$$ dispose image
+      delete image1;
       image1 = NULL;
     }
   if (image2)
     {
-      // $$$ dispose image
+      delete image2;
       image2 = NULL;
     }
 
