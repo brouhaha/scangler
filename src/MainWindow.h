@@ -8,6 +8,8 @@
 #include <stdint.h>
 #include <QMainWindow>
 
+#include "IntegralImage.h"
+#include "BinarizeSauvola.h"
 #include "ImageViewPair.h"
 #include "IntControl.h"
 #include "SauvolaControls.h"
@@ -21,12 +23,12 @@ class MainWindow: public QMainWindow
 
  private:
   QImage *image1;
-  int width;
-  int height;
-  long pixels;
+  uint32_t width;
+  uint32_t height;
+  uint64_t pixels;
 
-  uint64_t *ii;  // integral image
-  uint64_t *i2i; // integral squared image
+  IntegralImage *integral_image;
+  BinarizeSauvola binarize;
 
   QImage *image2;
 
@@ -49,7 +51,7 @@ class MainWindow: public QMainWindow
 
   void loadImage(QString fn);
   void computeIntegralImages();
-  void binarize();
+  void do_binarize(int w, double k);
 
  private slots:
   void openFile();
