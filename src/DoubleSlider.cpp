@@ -5,8 +5,10 @@
 #include "DoubleSlider.h"
 
 
-DoubleSlider::DoubleSlider(QWidget *parent, double scale) : QSlider(parent),
-							    scale(scale)
+DoubleSlider::DoubleSlider(Qt::Orientation orientation,
+			   QWidget *parent,
+			   double scale) : QSlider(orientation, parent),
+					   scale(scale)
 {
   connect(this, & DoubleSlider::valueChanged,
 	  this, & DoubleSlider::notifyValueChanged);

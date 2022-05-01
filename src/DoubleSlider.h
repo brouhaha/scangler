@@ -12,7 +12,7 @@ class DoubleSlider: public QSlider
   Q_OBJECT
 
  public:
-  DoubleSlider(QWidget *parent = 0, double scale = 10.0);
+  DoubleSlider(Qt::Orientation orientation, QWidget *parent = 0, double scale = 10.0);
 
  signals:
   void doubleValueChanged(double value);

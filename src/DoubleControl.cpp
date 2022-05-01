@@ -13,7 +13,7 @@ DoubleControl::DoubleControl (double min, double max,
 			      const char *title,
 			      QWidget *parent) : QGroupBox (parent),
 						 spinbox(QDoubleSpinBox(this)),
-						 slider(DoubleSlider(this, pow(10, decimals))),
+						 slider(DoubleSlider(Qt::Horizontal, this, pow(10, decimals))),
 						 layout(QVBoxLayout(this))
 							 
 {
