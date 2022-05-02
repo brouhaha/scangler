@@ -29,14 +29,8 @@ MainWindow::MainWindow():
 
   ivp = new ImageViewPair(image1, image2);
 
-  int tc = QThread::idealThreadCount();
-  if (tc < 1)
-    tc = 1;
-  threadCount = new IntControl(1, 4 * tc, tc, "thread count", box);
-
   boxLayout->addWidget(ivp);
   boxLayout->addWidget(sparm);
-  boxLayout->addWidget(threadCount);
   box->setLayout(boxLayout);
 
   setCentralWidget(box);

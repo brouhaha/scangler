@@ -34,7 +34,6 @@ class MainWindow: public QMainWindow
 
   ImageViewPair *ivp;
   SauvolaControls *sparm;
-  IntControl *threadCount;
 
   void createActions();
   void createMenus();
