@@ -20,4 +20,20 @@ At the time, this was the first C++ program I'd written since an employer
 sent me to C++ training in 1990, and the first program I'd written using
 Qt.
 
-The program requires Qt4 and Qwt5.
+## Building from source
+
+The program requires Qt 6, and has been tested with Qt 6.2.3.
+
+Make sure `qmake` is the right executable for use with qt6. It's possible
+that the qt6 qmake might be installed under another name, e.g. on systems
+that allow parallel installation of multiple major versions of qmake. If
+necessary, substitute the correct name or path for Qt6 qmake in the command
+listed below.
+
+To build:
+
+- `cd src`
+- `qmake`
+- `make`
+
+The resulting executable is named binarize-gui.
