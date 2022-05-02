@@ -14,14 +14,16 @@ HEADERS += ImageView.h ImageViewPair.h \
 	IntegralImage.h \
         Binarize.h BinarizeSauvola.h \
 	DoubleSlider.h \
-	IntControl.h DoubleControl.h \
+        IntControl.h DoubleControl.h \
+        ScaleControl.h \
 	SauvolaControls.h \
 	MainWindow.h
 SOURCES += ImageView.cpp ImageViewPair.cpp \
 	IntegralImage.cpp \
         BinarizeSauvola.cpp \
 	DoubleSlider.cpp \
-	IntControl.cpp DoubleControl.cpp \
+        IntControl.cpp DoubleControl.cpp \
+        ScaleControl.cpp \
         SauvolaControls.cpp \
 	MainWindow.cpp \
 	main.cpp

@@ -19,7 +19,7 @@ void ImageView::setImage(QImage *i)
   item.setPixmap(pixmap);
 }
 
-void ImageView::setScale(int scale)
+void ImageView::setScale(double scale)
 {
   resetTransform();
   this->scale(scale, scale);

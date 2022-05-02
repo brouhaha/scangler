@@ -23,7 +23,7 @@ class ImageView: public QGraphicsView
 
  public slots:
   void setImage(QImage *i);
-  void setScale(int scale);
+  void setScale(double scale);
 };
 
 #endif

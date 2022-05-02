@@ -7,7 +7,7 @@
 
 #include <QGridLayout>
 
-#include "IntControl.h"
+#include "ScaleControl.h"
 #include "ImageView.h"
 
 class ImageViewPair: public QWidget
@@ -28,13 +28,13 @@ class ImageViewPair: public QWidget
 
  public slots:
   void setImage(int n, QImage *i);
-  void setScale(int scale);
+  void setScale(double scale);
   void setOrientation(enum Orientation orientation);
 
  private:
   enum Orientation orientation;
   ImageView *imageView[2];
-  IntControl scaleControl;
+  ScaleControl scaleControl;
   QGridLayout layout;
 };
 

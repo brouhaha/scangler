@@ -13,7 +13,7 @@ static bool debug = false;
 
 
 ImageViewPair::ImageViewPair(QImage *i0, QImage *i1, QWidget *parent, Qt::WindowFlags f) : QWidget (parent, f),
-											   scaleControl(1, 64, 1, "zoom factor", this),
+											   scaleControl(16, 16, 1, false, "zoom factor", this),
 											   layout(QGridLayout(this))
 {
   imageView[0] = new ImageView(i0, this);
@@ -27,7 +27,7 @@ ImageViewPair::ImageViewPair(QImage *i0, QImage *i1, QWidget *parent, Qt::Window
 	      imageView[! i]->verticalScrollBar(),   & QScrollBar::setValue);
     }
 
-  connect(& scaleControl, & IntControl::valueChanged,
+  connect(& scaleControl, & ScaleControl::valueChanged,
 	  this,           & ImageViewPair::setScale);
 
   orientation = Unknown;
@@ -40,7 +40,7 @@ void ImageViewPair::setImage(int n, QImage *i)
   imageView[n]->setImage(i);
 }
 
-void ImageViewPair::setScale(int scale)
+void ImageViewPair::setScale(double scale)
 {
   for (int i = 0; i <= 1; i++)
     imageView[i]->setScale(scale);
