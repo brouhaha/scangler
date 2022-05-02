@@ -146,6 +146,8 @@ void MainWindow::openFile()
 
 void MainWindow::do_binarize(int w, double k)
 {
+  binarize.w = w;
+  binarize.k = k;
   binarize.binarize(*image1, *image2, *integral_image);
 
   if (ivp)
