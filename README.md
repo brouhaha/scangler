@@ -16,10 +16,6 @@ experimentation with its paramters. The binarize-gui program loads an image,
 displays the original image and the binarized image, and has sliders for the
 Suavola algorithm's window size and k parameters.
 
-At the time, this was the first C++ program I'd written since an employer
-sent me to C++ training in 1990, and the first program I'd written using
-Qt. I've since modernized the C++ a little.
-
 ## Building from source
 
 The program requires Qt 6, which requires C++ 17. It has been tested
