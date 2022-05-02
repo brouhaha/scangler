@@ -18,11 +18,12 @@ Suavola algorithm's window size and k parameters.
 
 At the time, this was the first C++ program I'd written since an employer
 sent me to C++ training in 1990, and the first program I'd written using
-Qt.
+Qt. I've since modernized the C++ a little.
 
 ## Building from source
 
-The program requires Qt 6, and has been tested with Qt 6.2.3.
+The program requires Qt 6, which requires C++ 17. It has been tested
+with the GCC 11.2.1 compiler and Qt 6.2.3.
 
 Make sure `qmake` is the right executable for use with qt6. It's possible
 that the qt6 qmake might be installed under another name, e.g. on systems
