@@ -6,6 +6,8 @@
 #define IMAGEVIEWPAIR_H
 
 #include <QGridLayout>
+
+#include "IntControl.h"
 #include "ImageView.h"
 
 class ImageViewPair: public QWidget
@@ -15,6 +17,7 @@ class ImageViewPair: public QWidget
  public:
   enum Orientation
   {
+    Unknown,
     Horizontal,
     Vertical,
     Only0,
@@ -22,12 +25,16 @@ class ImageViewPair: public QWidget
   };
 
   ImageViewPair(QImage *i0, QImage *i1, QWidget *parent = 0, Qt::WindowFlags f = Qt::WindowFlags());
+
+ public slots:
   void setImage(int n, QImage *i);
+  void setScale(int scale);
   void setOrientation(enum Orientation orientation);
 
  private:
   enum Orientation orientation;
   ImageView *imageView[2];
+  IntControl scaleControl;
   QGridLayout layout;
 };
 

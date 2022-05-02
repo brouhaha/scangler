@@ -20,7 +20,10 @@ class ImageView: public QGraphicsView
 
  public:
   ImageView(QImage *i, QWidget *parent = 0);
+
+ public slots:
   void setImage(QImage *i);
+  void setScale(int scale);
 };
 
 #endif
