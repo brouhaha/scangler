@@ -16,5 +16,5 @@ ImageView::ImageView(QImage *i, QWidget *parent) : QGraphicsView (parent),
 void ImageView::setImage(QImage *i)
 {
   pixmap.convertFromImage(*i);
-  scene.update();
+  item.setPixmap(pixmap);
 }
