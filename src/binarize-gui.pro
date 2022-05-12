@@ -16,7 +16,8 @@ HEADERS += ImageView.h ImageViewPair.h \
 	DoubleSlider.h \
         IntControl.h DoubleControl.h \
         ScaleControl.h \
-	SauvolaControls.h \
+        SauvolaControls.h \
+        Images.h \
 	MainWindow.h
 SOURCES += ImageView.cpp ImageViewPair.cpp \
 	IntegralImage.cpp \
@@ -25,5 +26,6 @@ SOURCES += ImageView.cpp ImageViewPair.cpp \
         IntControl.cpp DoubleControl.cpp \
         ScaleControl.cpp \
         SauvolaControls.cpp \
-	MainWindow.cpp \
+        MainWindow.cpp \
+        Images.cpp \
 	main.cpp

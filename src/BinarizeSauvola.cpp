@@ -5,14 +5,32 @@
 #include "BinarizeSauvola.h"
 
 
-BinarizeSauvola::BinarizeSauvola(int w, double k) : w(w), k(k)
+bool SauvolaParameters::operator==(const SauvolaParameters& other)
 {
+  return (w == other.w) && (k == other.k);
+}
+
+bool SauvolaParameters::operator!=(const SauvolaParameters& other)
+{
+  return (w != other.w) || (k != other.k);
+}
+
+
+void BinarizeSauvola::set_params(SauvolaParameters &new_params)
+{
+  this->params = new_params;
+}
+
+
+void BinarizeSauvola::get_params(SauvolaParameters &params)
+{
+  params = this->params;
 }
 
 
 void BinarizeSauvola::binarize(QImage &source,
-			       QImage &dest,
-			       IntegralImage &integral_image)
+			       IntegralImage &integral_image,
+			       QImage &dest)
 {
   assert(dest.depth() == 1);  // destination must be bitmap
 
@@ -21,18 +39,17 @@ void BinarizeSauvola::binarize(QImage &source,
 
   for(uint32_t y = 0; y < height; y++)
     {
+      uint8_t *gray_line = source.scanLine(y);
       uint8_t *bitmap_line = dest.scanLine(y);
       for(uint32_t x = 0; x < width; x++)
 	{
 	  Stats stats;
 
-	  integral_image.compute_stats(x, y, w, stats);
+	  integral_image.compute_stats(x, y, params.w, stats);
 
-	  double threshold = stats.mean *(1 + k *((stats.standard_deviation / 128) - 1));
+	  double threshold = stats.mean *(1 + params.k *((stats.standard_deviation / 128) - 1));
 
-	  // should use constScanline() in outr loop, then index to get
-	  // pixel data
-	  if (source.pixelColor(x, y).value() < threshold)
+	  if (gray_line[x] < threshold)
 	    bitmap_line [x / 8] &= ~(1 <<(x & 7));
 	  else
 	    bitmap_line [x / 8] |=(1 <<(x & 7));

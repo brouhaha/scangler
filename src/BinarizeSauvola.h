@@ -2,21 +2,36 @@
 // Copyright 2012, 2022 Eric Smith <spacewar@gmail.com
 // SPDX-License-Identifier: GPL-3.0-only
 
+// Sauvola, Jaakko & Seppänen, Tapio & Haapakoski, Sami & Pietikäinen, Matti.
+// (1997). Adaptive Document Binarization. Pattern Recognition. 33. 147-152
+// vol.1. 10.1109/ICDAR.1997.619831. 
+
 #ifndef BINARIZE_SAUVOLA_H
 #define BINARIZE_SAUVOLA_H
 
 #include "Binarize.h"
 
+class SauvolaParameters
+{
+public:
+  int    w = 30;     // window width and height in pixels
+  double k = 0.2;
+
+  bool operator==(const SauvolaParameters& other);
+  bool operator!=(const SauvolaParameters& other);
+};
+
 class BinarizeSauvola: public Binarize
 {
  public:
-  BinarizeSauvola(int w = 30,
-		  double k = 0.2);
+  void set_params(SauvolaParameters& new_params);
 
-  void binarize(QImage &source, QImage &dest, IntegralImage &integral_image);
+  void get_params(SauvolaParameters& new_params);
 
-  int w;     // window size
-  double k;  // 
+  void binarize(QImage& source, IntegralImage& integral_image, QImage& dest);
+
+ private:
+  SauvolaParameters params;
 };
 
 #endif

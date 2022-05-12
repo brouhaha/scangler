@@ -2,35 +2,36 @@
 // Copyright 2012, 2022 Eric Smith <spacewar@gmail.com
 // SPDX-License-Identifier: GPL-3.0-only
 
+#include <chrono>
+#include <iostream>
+
 #include <QAction>
 #include <QMenuBar>
 #include <QFileDialog>
 
 #include "MainWindow.h"
 
+
 MainWindow::MainWindow():
   binarize()
 {
   QWidget *box = new QWidget(this);
-  sparm = new SauvolaControls(0.2, 30, box);
 
-  connect(sparm, & SauvolaControls::valueChanged,
+  sauvola_controls = new SauvolaControls(this);
+
+  connect(sauvola_controls, & SauvolaControls::valueChanged,
 	  this,  & MainWindow::sauvolaParametersChanged);
 
-  image1 = NULL;
-  image2 = NULL;
-  integral_image = NULL;
-
-  ivp = NULL;
+  ivp = nullptr;
 
   openFile();
 
   QVBoxLayout *boxLayout = new QVBoxLayout(box);
 
-  ivp = new ImageViewPair(image1, image2);
+  ivp = new ImageViewPair(& images->image1, & images->image2);
 
   boxLayout->addWidget(ivp);
-  boxLayout->addWidget(sparm);
+  boxLayout->addWidget(sauvola_controls);
   box->setLayout(boxLayout);
 
   setCentralWidget(box);
@@ -101,38 +102,22 @@ void MainWindow::view1()
 
 void MainWindow::loadImage(QString fn)
 {
-  if (image1)
+  Images *new_images = new Images(fn);
+  if (! new_images->valid())
     {
-      delete image1;
-      image1 = NULL;
-    }
-  if (image2)
-    {
-      delete image2;
-      image2 = NULL;
+      // XXX need to report the error
+      delete new_images;
+      return;
     }
 
-  if (integral_image)
-    {
-      delete integral_image;
-      integral_image = NULL;
-    }
-
-  image1 = new QImage(fn);
+  if (images)
+    delete(images);
+  images = new_images;
 
   if (ivp)
-    ivp->setImage(0, image1);
+    ivp->setImage(0, & images->image1);
 
-  width  = image1->width();
-  height = image1->height();
-  pixels = ((uint64_t) width) * ((uint64_t) height);
-
-  image2 = new QImage(width, height, QImage::Format_MonoLSB);
-  image2->fill(1);  // white
-
-  integral_image = new IntegralImage(*image1);
-
-  do_binarize(sparm->getW(), sparm->getK());
+  do_binarize();
 }
 
 void MainWindow::openFile()
@@ -144,17 +129,28 @@ void MainWindow::openFile()
   loadImage(fn);
 }
 
-void MainWindow::do_binarize(int w, double k)
+void MainWindow::do_binarize()
 {
-  binarize.w = w;
-  binarize.k = k;
-  binarize.binarize(*image1, *image2, *integral_image);
+  auto start_time = std::chrono::steady_clock::now();
+  binarize.binarize(images->image1_grayscale,
+		    images->integral_image,
+		    images->image2);
+  auto end_time = std::chrono::steady_clock::now();
+  auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+  std::cout << "binarize time " << elapsed_ms.count() << " ms\n";
 
   if (ivp)
-    ivp->setImage(1, image2);
+    ivp->setImage(1, & images->image2);
 }
 
-void MainWindow::sauvolaParametersChanged(double k, int w)
+void MainWindow::sauvolaParametersChanged(SauvolaParameters& new_params)
 {
-  do_binarize(sparm->getW(), sparm->getK());
+  SauvolaParameters current_params;
+  binarize.get_params(current_params);
+  if (new_params != current_params)
+  {
+    binarize.set_params(new_params);
+    std::cout << "k: " << new_params.k << "  w: " << new_params.w << "\n";
+    do_binarize();
+  }
 }

@@ -12,9 +12,9 @@
 class Binarize
 {
  public:
-  virtual void binarize(QImage &source,
-			QImage &dest,
-			IntegralImage &integral_image) = 0;
+  virtual void binarize(QImage& source,
+			IntegralImage& integral_image,
+			QImage& dest) = 0;
 };
 
-#endif
+#endif // BINARIZE_H

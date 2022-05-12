@@ -4,16 +4,15 @@
 
 #include "SauvolaControls.h"
 
-SauvolaControls::SauvolaControls(double k, int w,
-				 QWidget *parent) : QGroupBox(parent),
-						    sw(IntControl(0, 1000, w, "window size", this)),
-						    sk(DoubleControl(0.0, 1.0, 3, 0.01, k, "k", this)),
+SauvolaControls::SauvolaControls(QWidget *parent) : QGroupBox(parent),
+						    sw(IntControl(0, 1000, params.w, "window size", this)),
+						    sk(DoubleControl(0.0, 1.0, 3, 0.01, params.k, "k", this)),
 						    layout(QHBoxLayout(this))
 {
   connect(& sw, & IntControl::valueChanged,
-	  this, & SauvolaControls::controlChanged);
+	  this, & SauvolaControls::wChanged);
   connect(& sk, & DoubleControl::valueChanged,
-	  this, & SauvolaControls::controlChanged);
+	  this, & SauvolaControls::kChanged);
 
   layout.addWidget(& sw);
   layout.addWidget(& sk);
@@ -23,17 +22,26 @@ SauvolaControls::SauvolaControls(double k, int w,
   setStyleSheet("QGroupBox#SauvolaGroupBox { border: 2px solid gray; border-radius: 3px; }");
 }
 
-int SauvolaControls::getW()
+void SauvolaControls::set_params(SauvolaParameters& params)
 {
-  return sw.getValue();
+  this->params = params;
+  sw.setValue(params.w);
+  sk.setValue(params.k);
 }
 
-double SauvolaControls::getK()
+void SauvolaControls::get_params(SauvolaParameters& params)
 {
-  return sk.getValue();
+  params = this->params;
 }
 
-void SauvolaControls::controlChanged()
+void SauvolaControls::wChanged(int value)
 {
-  valueChanged(sk.getValue(), sw.getValue());
+  params.w = value;
+  valueChanged(params);
+}
+
+void SauvolaControls::kChanged(double value)
+{
+  params.k = value;
+  valueChanged(params);
 }

@@ -6,13 +6,15 @@
 #define MAINWINDOW_H
 
 #include <stdint.h>
+
 #include <QMainWindow>
 
-#include "IntegralImage.h"
+#include "Images.h"
 #include "BinarizeSauvola.h"
 #include "ImageViewPair.h"
 #include "IntControl.h"
 #include "SauvolaControls.h"
+
 
 class MainWindow: public QMainWindow
 {
@@ -22,18 +24,11 @@ class MainWindow: public QMainWindow
   MainWindow();
 
  private:
-  QImage *image1;
-  uint32_t width;
-  uint32_t height;
-  uint64_t pixels;
-
-  IntegralImage *integral_image;
-  BinarizeSauvola binarize;
-
-  QImage *image2;
-
+  Images *images = nullptr;
   ImageViewPair *ivp;
-  SauvolaControls *sparm;
+
+  BinarizeSauvola binarize;
+  SauvolaControls *sauvola_controls;
 
   void createActions();
   void createMenus();
@@ -50,7 +45,7 @@ class MainWindow: public QMainWindow
 
   void loadImage(QString fn);
   void computeIntegralImages();
-  void do_binarize(int w, double k);
+  void do_binarize();
 
  private slots:
   void openFile();
@@ -59,7 +54,7 @@ class MainWindow: public QMainWindow
   void view0();
   void view1();
 
-  void sauvolaParametersChanged(double k, int w);
+  void sauvolaParametersChanged(SauvolaParameters& new_params);
 };
 
 #endif
