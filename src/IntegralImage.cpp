@@ -12,12 +12,17 @@ IntegralImage::IntegralImage(QImage &image) :
   ii(width * height, 0),
   sii(width * height, 0)
 {
+  // source must be 8-bit grayscale
+  assert(image.format() == QImage::Format_Grayscale8);
+  assert(image.depth() == 8);
+
   // handle y=0
   uint64_t rs = 0;
   uint64_t rs2 = 0;
+  uint8_t *gray_line = image.scanLine(0);
   for(uint32_t x = 0; x < width; x++)
     {
-      uint32_t pval = image.pixelColor(x, 0).value();
+      uint32_t pval = gray_line[x];
       rs += pval;
       rs2 += pval * pval;
       ii[x] = rs;
@@ -27,12 +32,13 @@ IntegralImage::IntegralImage(QImage &image) :
   // handle y>0
   for(uint32_t y = 1; y < height; y++)
     {
+      gray_line = image.scanLine(y);
       long row_base = y * width;
       rs = 0;
       rs2 = 0;
       for(uint32_t x = 0; x < width; x++)
 	{
-	  uint32_t pval = image.pixelColor(x, y).value();
+	  uint32_t pval = gray_line[x];
 	  rs += pval;
 	  rs2 += pval * pval;
 	  ii[row_base + x] = rs + ii[row_base - width + x];

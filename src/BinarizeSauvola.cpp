@@ -32,7 +32,13 @@ void BinarizeSauvola::binarize(QImage &source,
 			       IntegralImage &integral_image,
 			       QImage &dest)
 {
-  assert(dest.depth() == 1);  // destination must be bitmap
+  // source must be 8-bit grayscale
+  assert(source.format() == QImage::Format_Grayscale8);
+  assert(source.depth() == 8);
+
+  // destination must be bitmap
+  assert(dest.format() == QImage::Format_MonoLSB);
+  assert(dest.depth() == 1);
 
   uint32_t height = source.height();
   uint32_t width = source.width();
