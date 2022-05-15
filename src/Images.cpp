@@ -2,15 +2,24 @@
 // Copyright 2012, 2022 Eric Smith <spacewar@gmail.com
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include "Images.h"
+#include <iostream>
 
+#include "Images.h"
 
 Images::Images(QString fn) :
   image1(QImage(fn)),  // XXX What happens below if this fails and image1 is null?
   width(image1.width()),
   height(image1.height()),
   pixel_count(static_cast<uint64_t>(width) * static_cast<uint64_t>(height)),
-  image1_grayscale(image1.copy()),
+
+  // having trouble here
+  // maybe need image1.copy().convertedTo(...)
+  // what's the difference betwen
+  //    QImage::convertToFormat()
+  // and
+  //    QImage::convertTo() ?
+  image1_grayscale(image1.convertedTo(QImage::Format_Grayscale8)),
+
   integral_image(image1_grayscale),
   image2(QImage(width, height, QImage::Format_MonoLSB))
 {
