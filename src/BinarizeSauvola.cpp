@@ -53,12 +53,12 @@ void BinarizeSauvola::binarize(QImage &source,
 
 	  integral_image.compute_stats(x, y, params.w, stats);
 
-	  double threshold = stats.mean *(1 + params.k *((stats.standard_deviation / 128) - 1));
+	  double threshold = stats.mean * (1 + params.k * (stats.standard_deviation / 128 - 1));
 
 	  if (gray_line[x] < threshold)
 	    bitmap_line [x / 8] &= ~(1 <<(x & 7));
 	  else
-	    bitmap_line [x / 8] |=(1 <<(x & 7));
+	    bitmap_line [x / 8] |= (1 <<(x & 7));
 	}
     }
 }
