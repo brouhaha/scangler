@@ -3,9 +3,11 @@
 # SPDX-License-Identifier: GPL-3.0-only
 
 TEMPLATE = app
-TARGET = binarize-gui
+TARGET = binarize
 DEPENDPATH += .
 INCLUDEPATH += .
+
+CONFIG += debug
 
 QT += widgets
 
