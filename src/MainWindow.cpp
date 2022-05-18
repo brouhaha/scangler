@@ -13,70 +13,63 @@
 
 
 MainWindow::MainWindow():
+  box(this),
+  boxLayout(& box),
+  sauvola_controls(this),
   binarize()
 {
-  QWidget *box = new QWidget(this);
-
-  sauvola_controls = new SauvolaControls(this);
-
-  connect(sauvola_controls, & SauvolaControls::valueChanged,
+  connect(& sauvola_controls, & SauvolaControls::valueChanged,
 	  this,  & MainWindow::sauvolaParametersChanged);
 
   ivp = nullptr;
 
   openFile();
 
-  QVBoxLayout *boxLayout = new QVBoxLayout(box);
-
   ivp = new ImageViewPair(& images->image1, & images->image2);
 
-  boxLayout->addWidget(ivp);
-  boxLayout->addWidget(sauvola_controls);
-  box->setLayout(boxLayout);
+  boxLayout.addWidget(ivp);
+  boxLayout.addWidget(& sauvola_controls);
+  box.setLayout(& boxLayout);
 
-  setCentralWidget(box);
+  setCentralWidget(& box);
 
-  createActions();
   createMenus();
-}
-
-void MainWindow::createActions()
-{
-  openAct = new QAction(tr("&Open"), this);
-  connect(openAct,  & QAction::triggered,
-	  this,     & MainWindow::openFile);
-
-  exitAct = new QAction(tr("&Exit"), this);
-  connect(exitAct,  & QAction::triggered,
-	  this,     & MainWindow::close);
-
-  viewHAct = new QAction(tr("&Horizontal"), this);
-  connect(viewHAct, & QAction::triggered,
-	  this,     & MainWindow::viewH);
-
-  viewVAct = new QAction(tr("&Vertical"), this);
-  connect(viewVAct, & QAction::triggered,
-	  this,     & MainWindow::viewV);
-
-  view0Act = new QAction(tr("&Greyscale only"), this);
-  connect(view0Act, & QAction::triggered,
-	  this,     & MainWindow::view0);
-
-  view1Act = new QAction(tr("&Binarized only"), this);
-  connect(view1Act, & QAction::triggered,
-	  this,     & MainWindow::view1);
 }
 
 void MainWindow::createMenus()
 {
-  fileMenu = menuBar()->addMenu(tr("&File"));
+  QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
+
+  auto openAct = new QAction(tr("&Open"), this);
+  connect(openAct,  & QAction::triggered,
+	  this,     & MainWindow::openFile);
   fileMenu->addAction(openAct);
+
+  auto exitAct = new QAction(tr("&Exit"), this);
+  connect(exitAct,  & QAction::triggered,
+	  this,     & MainWindow::close);
   fileMenu->addAction(exitAct);
 
-  viewMenu = menuBar()->addMenu(tr("&View"));
+  QMenu* viewMenu = menuBar()->addMenu(tr("&View"));
+
+  auto viewHAct = new QAction(tr("&Horizontal"), this);
+  connect(viewHAct, & QAction::triggered,
+	  this,     & MainWindow::viewH);
   viewMenu->addAction(viewHAct);
+
+  auto viewVAct = new QAction(tr("&Vertical"), this);
+  connect(viewVAct, & QAction::triggered,
+	  this,     & MainWindow::viewV);
   viewMenu->addAction(viewVAct);
+
+  auto view0Act = new QAction(tr("&Original only"), this);
+  connect(view0Act, & QAction::triggered,
+	  this,     & MainWindow::view0);
   viewMenu->addAction(view0Act);
+
+  auto view1Act = new QAction(tr("&Binarized only"), this);
+  connect(view1Act, & QAction::triggered,
+	  this,     & MainWindow::view1);
   viewMenu->addAction(view1Act);
 }
 
@@ -126,6 +119,8 @@ void MainWindow::openFile()
 					     tr("Open image"),
 					     ".",
 					     tr("Image Files(*.png *.jpg *.bmp)"));
+  if (fn.isNull())
+    return;
   loadImage(fn);
 }
 

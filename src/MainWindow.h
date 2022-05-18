@@ -24,24 +24,15 @@ class MainWindow: public QMainWindow
   MainWindow();
 
  private:
-  Images *images = nullptr;
-  ImageViewPair *ivp;
-
+  QWidget box;
+  QVBoxLayout boxLayout;
+  SauvolaControls sauvola_controls;
   BinarizeSauvola binarize;
-  SauvolaControls *sauvola_controls;
 
-  void createActions();
+  Images *images = nullptr;
+  ImageViewPair *ivp = nullptr;
+
   void createMenus();
-
-  QMenu *fileMenu;
-  QAction *openAct;
-  QAction *exitAct;
-
-  QMenu *viewMenu;
-  QAction *viewHAct;
-  QAction *viewVAct;
-  QAction *view0Act;
-  QAction *view1Act;
 
   void loadImage(QString fn);
   void computeIntegralImages();
