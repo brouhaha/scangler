@@ -55,7 +55,7 @@ void IntegralImage::compute_stats(uint32_t x, uint32_t y, uint32_t window,
   uint32_t x_min = (x < window/2) ? 0 : x - window/2;
   uint32_t x_max = (x + window/2 >= width) ? width - 1 : x + window/2;
   uint32_t y_min = (y < window/2) ? 0 : y - window/2;
-  uint32_t y_max = (y + window/2 >= width) ? height - 1 : y + window/2;
+  uint32_t y_max = (y + window/2 >= height) ? height - 1 : y + window/2;
 
   uint64_t tl = y_min * width + x_min;
   uint64_t tr = y_min * width + x_max;
