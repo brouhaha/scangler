@@ -5,10 +5,9 @@
 #include <QtGui>
 #include "ImageView.h"
 
-ImageView::ImageView(QImage *i, QWidget *parent) : QGraphicsView (parent),
-						   pixmap(QPixmap::fromImage(*i)),
-						   item(QGraphicsPixmapItem(pixmap))
+ImageView::ImageView(QImage *i, QWidget *parent) : QGraphicsView (parent)
 {
+  setImage(i);
   scene.addItem(& item);
   setScene(& scene);
 }
