@@ -65,6 +65,6 @@ void IntegralImage::compute_stats(uint32_t x, uint32_t y, uint32_t window,
   double area = ((double)(x_max + 1 - x_min)) * ((double)(y_max + 1 - y_min));
 
   stats.mean = (ii[tl] + ii[br] - ii[tr] - ii[bl]) / area;
-  stats.variance = (sii[tl] + sii[br] -sii[tr] - sii[bl]) / area;
+  stats.variance = (sii[tl] + sii[br] - sii[tr] - sii[bl]) / area - stats.mean * stats.mean;
   stats.standard_deviation = sqrt(stats.variance);
 }
