@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include <QAction>
+#include <QErrorMessage>
 #include <QMenuBar>
 #include <QFileDialog>
 
@@ -44,6 +45,13 @@ void MainWindow::createMenus()
   connect(openAct,  & QAction::triggered,
 	  this,     & MainWindow::openFile);
   fileMenu->addAction(openAct);
+
+  auto saveAsAct = new QAction(tr("&Save As..."), this);
+  connect(saveAsAct,  & QAction::triggered,
+	  this,       & MainWindow::saveFile);
+  fileMenu->addAction(saveAsAct);
+
+  fileMenu->addSeparator();
 
   auto exitAct = new QAction(tr("&Exit"), this);
   connect(exitAct,  & QAction::triggered,
@@ -113,6 +121,15 @@ void MainWindow::loadImage(QString fn)
   do_binarize();
 }
 
+void MainWindow::saveImage(QString fn)
+{
+  if (! images->image2.save(fn))
+    {
+      std::cout << "File save failed.\n";
+      QErrorMessage::qtHandler()->showMessage("File save failed.");
+    }
+}
+
 void MainWindow::openFile()
 {
   QString fn = QFileDialog::getOpenFileName(this, 
@@ -122,6 +139,17 @@ void MainWindow::openFile()
   if (fn.isNull())
     return;
   loadImage(fn);
+}
+
+void MainWindow::saveFile()
+{
+  QString fn = QFileDialog::getSaveFileName(this, 
+					     tr("Save image"),
+					     ".",
+					     tr("Image Files(*.png *.jpg *.bmp *.tiff)"));
+  if (fn.isNull())
+    return;
+  saveImage(fn);
 }
 
 void MainWindow::do_binarize()

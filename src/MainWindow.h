@@ -35,11 +35,15 @@ class MainWindow: public QMainWindow
   void createMenus();
 
   void loadImage(QString fn);
+  void saveImage(QString fn);
+
   void computeIntegralImages();
   void do_binarize();
 
  private slots:
   void openFile();
+  void saveFile();
+
   void viewH();
   void viewV();
   void view0();
