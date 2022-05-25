@@ -1,4 +1,4 @@
-binarize-gui
+scangler
 *.o
 moc_*.h
 moc_*.cpp

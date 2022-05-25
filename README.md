@@ -1,11 +1,11 @@
-# binarize - Sauvola binarization of images
+# scangler - Sauvola binarization of images
 
 Copyright 2012, 2022 Eric Smith <spacewar@gmail.com>
 
 SPDX-License-Identifier: GPL-3.0-only
 
-binarize development is hosted at the
-[binarize Github repository](https://github.com/brouhaha/binarize/).
+scangler development is hosted at the
+[scangler Github repository](https://github.com/brouhaha/scangler/).
 
 ## Introduction
 
@@ -33,4 +33,4 @@ To build:
 - `qmake`
 - `make`
 
-The resulting executable is named binarize-gui.
+The resulting executable is named scangler.
