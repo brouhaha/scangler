@@ -1,4 +1,4 @@
-// binarize - Sauvola binarization of images
+// scangler - mangle scanned images
 // Copyright 2012, 2022 Eric Smith <spacewar@gmail.com
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -11,7 +11,7 @@
 
 #include "Images.h"
 #include "BinarizeSauvola.h"
-#include "ImageViewPair.h"
+#include "MultipleImageView.h"
 #include "IntControl.h"
 #include "SauvolaControls.h"
 
@@ -30,7 +30,7 @@ class MainWindow: public QMainWindow
   BinarizeSauvola binarize;
 
   Images *images = nullptr;
-  ImageViewPair *ivp = nullptr;
+  MultipleImageView imageViews;
 
   void createMenus();
 
@@ -43,11 +43,6 @@ class MainWindow: public QMainWindow
  private slots:
   void openFile();
   void saveFile();
-
-  void viewH();
-  void viewV();
-  void view0();
-  void view1();
 
   void sauvolaParametersChanged(SauvolaParameters& new_params);
 };

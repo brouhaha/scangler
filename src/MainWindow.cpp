@@ -1,4 +1,4 @@
-// binarize - Sauvola binarization of images
+// scangler - mangle scanned images
 // Copyright 2012, 2022 Eric Smith <spacewar@gmail.com
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -17,18 +17,15 @@ MainWindow::MainWindow():
   box(this),
   boxLayout(& box),
   sauvola_controls(this),
-  binarize()
+  binarize(),
+  imageViews(2, 1, this)
 {
   connect(& sauvola_controls, & SauvolaControls::valueChanged,
 	  this,  & MainWindow::sauvolaParametersChanged);
 
-  ivp = nullptr;
-
   openFile();
 
-  ivp = new ImageViewPair(& images->image1, & images->image2);
-
-  boxLayout.addWidget(ivp);
+  boxLayout.addWidget(& imageViews);
   boxLayout.addWidget(& sauvola_controls);
   box.setLayout(& boxLayout);
 
@@ -57,48 +54,6 @@ void MainWindow::createMenus()
   connect(exitAct,  & QAction::triggered,
 	  this,     & MainWindow::close);
   fileMenu->addAction(exitAct);
-
-  QMenu* viewMenu = menuBar()->addMenu(tr("&View"));
-
-  auto viewHAct = new QAction(tr("&Horizontal"), this);
-  connect(viewHAct, & QAction::triggered,
-	  this,     & MainWindow::viewH);
-  viewMenu->addAction(viewHAct);
-
-  auto viewVAct = new QAction(tr("&Vertical"), this);
-  connect(viewVAct, & QAction::triggered,
-	  this,     & MainWindow::viewV);
-  viewMenu->addAction(viewVAct);
-
-  auto view0Act = new QAction(tr("&Original only"), this);
-  connect(view0Act, & QAction::triggered,
-	  this,     & MainWindow::view0);
-  viewMenu->addAction(view0Act);
-
-  auto view1Act = new QAction(tr("&Binarized only"), this);
-  connect(view1Act, & QAction::triggered,
-	  this,     & MainWindow::view1);
-  viewMenu->addAction(view1Act);
-}
-
-void MainWindow::viewH()
-{
-  ivp->setOrientation(ImageViewPair::Horizontal);
-}
-
-void MainWindow::viewV()
-{
-  ivp->setOrientation(ImageViewPair::Vertical);
-}
-
-void MainWindow::view0()
-{
-  ivp->setOrientation(ImageViewPair::Only0);
-}
-
-void MainWindow::view1()
-{
-  ivp->setOrientation(ImageViewPair::Only1);
 }
 
 void MainWindow::loadImage(QString fn)
@@ -115,8 +70,7 @@ void MainWindow::loadImage(QString fn)
     delete(images);
   images = new_images;
 
-  if (ivp)
-    ivp->setImage(0, & images->image1);
+  imageViews.setImage(0, 0, images->image1);
 
   do_binarize();
 }
@@ -162,8 +116,7 @@ void MainWindow::do_binarize()
   auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
   std::cout << "binarize time " << elapsed_ms.count() << " ms\n";
 
-  if (ivp)
-    ivp->setImage(1, & images->image2);
+  imageViews.setImage(0, 1, images->image2);
 }
 
 void MainWindow::sauvolaParametersChanged(SauvolaParameters& new_params)
