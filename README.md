@@ -28,4 +28,16 @@ To build:
 
 - `scons`
 
+or
+
+- `scons target=posix`
+
 The resulting executable is `build/posix/scangler`.
+
+To cross-build for Windows, using mingw32 or mingw64:
+
+- `scons target=win32`
+
+or
+
+- `scons target=win64`
