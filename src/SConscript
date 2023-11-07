@@ -1,0 +1,85 @@
+# Copyright 2023 Eric Smith
+# SPDX-License-Identifier: GPL-3.0-only
+
+import SCons
+
+Import('env')
+
+def find_file(filename, pathnames):
+    paths = [env.Dir(pathname) for pathname in pathnames]
+    return SCons.Node.FS.find_file(filename, paths)
+
+
+
+env.Append(CXXFLAGS = ['-g', '--std=c++20'])
+env.Append(LINKFLAGS = ['-g'])
+
+local_tools = ['qt6']
+if env['target'] in ('win32', 'win64'):
+    local_tools += ['wxs', 'msi']
+for lt in local_tools:
+    env.Tool(lt, toolpath = ['.'])
+
+
+env.EnableQt6Modules(['QtCore',
+                      'QtGui',
+		      'QtWidgets'])
+
+SOURCES = ['BinarizeSauvola.cpp',
+           'DoubleControl.cpp',
+           'DoubleSlider.cpp',
+           'Images.cpp',
+           'ImageView.cpp',
+           'IntControl.cpp',
+           'IntegralImage.cpp',
+           'main.cpp',
+           'MainWindow.cpp',
+           'MultipleImageView.cpp',
+           'SauvolaControls.cpp',
+           'ScaleControl.cpp'
+	  ]
+
+
+executable = env.Program('scangler', SOURCES)[0]
+
+if env['target'] in ('win32', 'win64'):
+    wxs_template = env.File('scangler.wxst')
+
+    dll_names = ['Qt6Core',
+                 'Qt6Gui',
+                 'Qt6Widgets',
+		 'qwindows',
+                 'libstdc++-6',
+		 'libwinpthread-1',
+		 'libcrypto-3-x64',
+		 'icui18n72',
+		 'icuuc72',
+		 'icudata72',
+		 'iconv',
+		 'libpcre2-8-0',
+		 'libpcre2-16-0',
+		 'zlib1',
+		 'libssp-0',
+		 'libfontconfig-1',
+		 'libfreetype-6',
+		 'libharfbuzz-0',
+		 'libpng16-16',
+		 'libexpat-1',
+		 'libbz2-1',
+		 'libglib-2.0-0',
+		 'libintl-8',
+                 ]
+
+    if env['target'] == 'win32':
+        dll_names.append('libgcc_s_dw2-1')
+    elif env['target'] == 'win64':
+        dll_names.append('libgcc_s_seh-1')
+
+    dlls = [find_file(dll_name + '.dll', env['DLLPATH']) for dll_name in dll_names]
+    for dll in dlls:
+        print(dll)
+    files = [executable] + dlls
+    for file in files:
+    	print(file)
+    wxs = env.WXS('scangler.wxs', [wxs_template, files])
+    env.MSI(wxs)

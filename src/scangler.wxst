@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+Copyright 2023 Eric Smith
+SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+  <Product Name='cubic-bezier-bounding-box'
+	   Manufacturer='Frobco'
+	   Id="*"
+	   UpgradeCode='3885ec1e-6bf6-4ba4-8966-89e2190b5cdb'
+	   Language='1033'
+	   Codepage='1252'
+	   Version='1.5.0'>
+
+    <MajorUpgrade/>
+
+    <Package Id='*'
+    	     Keywords='Installer'
+	     Description="Frobco cubic-bezier-bounding-box Installer"
+	     Comments='no comment'
+	     Manufacturer='Frobco'
+	     InstallerVersion='100'
+	     Languages='1033'
+	     SummaryCodepage='1252'
+	     Compressed='yes' />
+
+    <Media Id='1'
+    	   Cabinet='cubic-bezier-bounding-box.cab'
+	   EmbedCab='yes'
+	   DiskPrompt="CD-ROM #1" />
+    <Property Id='DiskPrompt'
+    	      Value="Frobco cubic-bezier-bounding-box Installation [1]" />
+
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+        <Directory Id='INSTALLDIR' Name='cubic-bezier-bounding-box'>
+	  <Directory Id='qt-platforms-dir' Name='platforms'/>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder" Name="Programs"/>
+    </Directory>
+
+    <DirectoryRef Id="INSTALLDIR">
+    </DirectoryRef>
+
+    <DirectoryRef Id="qt-platforms-dir">
+    </DirectoryRef>
+
+    <DirectoryRef Id="ProgramMenuFolder">
+      <Component Id="ApplicationShortcut" Guid="6f813cd7-fb5b-40a4-839e-f434dcbd51b5">
+	<Shortcut Id="ApplicationStartMenuShortcut"
+		  Name="cubic-bezier-bounding-box"
+		  Description="cubic-bezier-bounding-box"
+		  Target="[#cubic-bezier-bounding-box.exe]"
+		  WorkingDirectory="INSTALLDIR"/>
+	<RemoveFolder Id="ApplicationProgramsFolder"
+		      On="uninstall"/>
+	<RegistryKey Root="HKCU"
+		     Key="Software\Frobco\cubic-bezier-bounding-box">
+	  <RegistryValue Name="installed"
+			 Type="integer"
+			 Value="1"
+			 KeyPath="yes"/>
+	</RegistryKey>
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id='Complete'
+    	     Level='1'>
+      <ComponentRef Id="ApplicationShortcut"/>
+    </Feature>
+
+  </Product>
+</Wix>

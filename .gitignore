@@ -1,8 +1,5 @@
-scangler
-*.o
-moc_*.h
-moc_*.cpp
-Makefile
+build
 *.jpg
-.qmake*
+.sconsign.dblite
+__pycache__
 *~

@@ -1,6 +1,6 @@
 # scangler - Sauvola binarization of images
 
-Copyright 2012, 2022 Eric Smith <spacewar@gmail.com>
+Copyright 2012, 2022, 2023 Eric Smith <spacewar@gmail.com>
 
 SPDX-License-Identifier: GPL-3.0-only
 
@@ -18,19 +18,14 @@ Suavola algorithm's window size and k parameters.
 
 ## Building from source
 
-The program requires Qt 6, which requires C++ 17. It has been tested
-with the GCC 11.2.1 compiler and Qt 6.2.3.
+The program is written in C++ 17, and requires:
 
-Make sure `qmake` is the right executable for use with qt6. It's possible
-that the qt6 qmake might be installed under another name, e.g. on systems
-that allow parallel installation of multiple major versions of qmake. If
-necessary, substitute the correct name or path for Qt6 qmake in the command
-listed below.
+- Qt 6.2.3 or later
+- GCC g++ 11.2.1 or later
+- SCons 4.4.0 or later
 
 To build:
 
-- `cd src`
-- `qmake`
-- `make`
+- `scons`
 
-The resulting executable is named scangler.
+The resulting executable is `build/posix/scangler`.
