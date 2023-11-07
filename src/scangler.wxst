@@ -5,10 +5,10 @@ SPDX-License-Identifier: GPL-3.0-only
 -->
 
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-  <Product Name='cubic-bezier-bounding-box'
+  <Product Name='scangler'
 	   Manufacturer='Frobco'
 	   Id="*"
-	   UpgradeCode='3885ec1e-6bf6-4ba4-8966-89e2190b5cdb'
+	   UpgradeCode='b4809a28-4dcf-4b47-811d-1f8fa1b14d0b'
 	   Language='1033'
 	   Codepage='1252'
 	   Version='1.5.0'>
@@ -17,7 +17,7 @@ SPDX-License-Identifier: GPL-3.0-only
 
     <Package Id='*'
     	     Keywords='Installer'
-	     Description="Frobco cubic-bezier-bounding-box Installer"
+	     Description="Frobco scangler Installer"
 	     Comments='no comment'
 	     Manufacturer='Frobco'
 	     InstallerVersion='100'
@@ -26,15 +26,15 @@ SPDX-License-Identifier: GPL-3.0-only
 	     Compressed='yes' />
 
     <Media Id='1'
-    	   Cabinet='cubic-bezier-bounding-box.cab'
+    	   Cabinet='scangler.cab'
 	   EmbedCab='yes'
 	   DiskPrompt="CD-ROM #1" />
     <Property Id='DiskPrompt'
-    	      Value="Frobco cubic-bezier-bounding-box Installation [1]" />
+    	      Value="Frobco scangler Installation [1]" />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>
-        <Directory Id='INSTALLDIR' Name='cubic-bezier-bounding-box'>
+        <Directory Id='INSTALLDIR' Name='scangler'>
 	  <Directory Id='qt-platforms-dir' Name='platforms'/>
         </Directory>
       </Directory>
@@ -48,16 +48,16 @@ SPDX-License-Identifier: GPL-3.0-only
     </DirectoryRef>
 
     <DirectoryRef Id="ProgramMenuFolder">
-      <Component Id="ApplicationShortcut" Guid="6f813cd7-fb5b-40a4-839e-f434dcbd51b5">
+      <Component Id="ApplicationShortcut" Guid="655c052e-4975-4b6a-9588-5fa0bd19d613">
 	<Shortcut Id="ApplicationStartMenuShortcut"
-		  Name="cubic-bezier-bounding-box"
-		  Description="cubic-bezier-bounding-box"
-		  Target="[#cubic-bezier-bounding-box.exe]"
+		  Name="scangler"
+		  Description="scangler"
+		  Target="[#scangler.exe]"
 		  WorkingDirectory="INSTALLDIR"/>
 	<RemoveFolder Id="ApplicationProgramsFolder"
 		      On="uninstall"/>
 	<RegistryKey Root="HKCU"
-		     Key="Software\Frobco\cubic-bezier-bounding-box">
+		     Key="Software\Frobco\scangler">
 	  <RegistryValue Name="installed"
 			 Type="integer"
 			 Value="1"

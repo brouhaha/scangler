@@ -51,10 +51,9 @@ if env['target'] in ('win32', 'win64'):
 		 'qwindows',
                  'libstdc++-6',
 		 'libwinpthread-1',
-		 'libcrypto-3-x64',
-		 'icui18n72',
-		 'icuuc72',
-		 'icudata72',
+		 'icui18n73',
+		 'icuuc73',
+		 'icudata73',
 		 'iconv',
 		 'libpcre2-8-0',
 		 'libpcre2-16-0',
@@ -69,6 +68,11 @@ if env['target'] in ('win32', 'win64'):
 		 'libglib-2.0-0',
 		 'libintl-8',
                  ]
+
+    if env['target'] == 'win64':
+        dll_names.append('libcrypto-3-x64')
+    else:
+        dll_names.append('libcrypto-3')
 
     if env['target'] == 'win32':
         dll_names.append('libgcc_s_dw2-1')
