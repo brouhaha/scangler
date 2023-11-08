@@ -3,11 +3,13 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 #include <QApplication>
+#include <QImageReader>
 
 #include "MainWindow.h"
 
 int main(int argc, char *argv[])
 {
+    QImageReader::setAllocationLimit(0);
     QApplication app (argc, argv);
 
     QCommandLineParser parser;
